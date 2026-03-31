@@ -10,38 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Setup Java (IMPORTANT 🔥)
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # 3. Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
 
-      # 4. Clean project (avoid stuck issues)
       - name: Clean project
         run: flutter clean
 
-      # 5. Get dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # 6. Build APK
       - name: Build APK
         run: flutter build apk --release
 
-      # 7. Upload APK
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4   # 👈 YE CHANGE IMPORTANT HAI
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
