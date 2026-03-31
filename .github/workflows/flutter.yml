@@ -16,7 +16,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.3'   # ✅ SAME AS YOUR LOCAL
+          flutter-version: '3.16.3'
 
       - name: Clean project
         run: flutter clean
@@ -28,7 +28,7 @@ jobs:
         run: flutter build apk --debug
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4   # ✅ FIXED
         with:
           name: app-debug
           path: build/app/outputs/flutter-apk/app-debug.apk
