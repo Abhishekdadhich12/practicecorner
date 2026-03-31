@@ -10,40 +10,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Java setup
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # Flutter setup
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
 
-      # Clean (IMPORTANT 🔥)
+      - name: Flutter Doctor
+        run: flutter doctor
+
       - name: Clean project
         run: flutter clean
 
-      # Get dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # Fix Android build cache issue
-      - name: Accept Android licenses
-        run: yes | flutter doctor --android-licenses
+      - name: Build APK (VERBOSE 🔥)
+        run: flutter build apk --debug --verbose
 
-      # Build APK
-      - name: Build APK
-        run: flutter build apk --debug
-
-      # Upload APK (UPDATED VERSION 🔥)
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
